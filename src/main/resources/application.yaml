@@ -10,10 +10,15 @@ spring:
         webflux:
           routes:
             - id: product-service
-              uri: http://localhost:8080
+              uri: lb://product-service
               predicates:
                 - Path=/api/v1/products/**
             - id: inventory-service
-              uri: http://localhost:8081
+              uri: lb://inventory-service
               predicates:
                 - Path=/api/v1/inventory/**,/api/v1/reservations/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
