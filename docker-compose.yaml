@@ -14,7 +14,7 @@ services:
     environment:
       REDIS_HOST: "host.docker.internal"
       REDIS_PORT: "6379"
-      EUREKA_URL: "http://host.docker.internal:8761/eureka/"
+      EUREKA_URL: "http://eureka-server:8761/eureka/"
       API_KEY: "${API_KEY:?API_KEY must be set in .env}"
     networks:
       - product-service_default
