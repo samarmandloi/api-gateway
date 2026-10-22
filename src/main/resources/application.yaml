@@ -45,3 +45,6 @@ eureka:
 
 security:
   api-key: ${API_KEY}
+  jwt:
+    public-key-path: ${JWT_PUBLIC_KEY_PATH:${user.home}/.config/ecommerce/user-service/jwt/public.pem}
+    issuer: user-service
