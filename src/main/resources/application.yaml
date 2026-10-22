@@ -6,8 +6,8 @@ spring:
     name: api-gateway
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   cloud:
     gateway:
       server:
@@ -40,8 +40,11 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
 
 
 security:
   api-key: ${API_KEY}
+  jwt:
+    public-key-path: ${JWT_PUBLIC_KEY_PATH:${user.home}/.config/ecommerce/user-service/jwt/public.pem}
+    issuer: user-service

@@ -1,0 +1,30 @@
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ecommerce-api-gateway:local
+    container_name: ecommerce-api-gateway
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${HOME}/.config/ecommerce/user-service/jwt/public.pem:/run/secrets/user-service-public.pem:ro
+    environment:
+      REDIS_HOST: "host.docker.internal"
+      REDIS_PORT: "6379"
+      EUREKA_URL: "http://eureka-server:8761/eureka/"
+      API_KEY: "${API_KEY:?API_KEY must be set in .env}"
+      JWT_PUBLIC_KEY_PATH: "/run/secrets/user-service-public.pem"
+    networks:
+      - product-service_default
+      - inventory-service_default
+
+networks:
+  product-service_default:
+    external: true
+  inventory-service_default:
+    external: true
